@@ -1,30 +1,43 @@
 <?php
-
 namespace Appmax\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @property int $UserID
+ * @property string $Name
+ * @property string $Email
+ * @property string $Password
+ * @property string $RememberToken
+ * @property boolean $IsActive
+ */
 class User extends Authenticatable
 {
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * The table associated with the model.
      *
-     * @var array
+     * @var string
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $table = 'User';
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The primary key for the model.
      *
+     * @var string
+     */
+    protected $primaryKey = 'UserID';
+
+    /**
      * @var array
      */
+    protected $fillable = ['Name', 'Email', 'Password', 'IsActive'];
+
     protected $hidden = [
-        'password', 'remember_token',
+        'RememberToken',
     ];
+
+    public $timestamps = false;
 }
