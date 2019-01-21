@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America_SaoPaulo',
 
     /*
     |--------------------------------------------------------------------------
@@ -169,11 +169,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Appmax\Providers\AppServiceProvider::class,
+        Appmax\Providers\AuthServiceProvider::class,
+        // Appmax\Providers\BroadcastServiceProvider::class,
+        Appmax\Providers\EventServiceProvider::class,
+        Appmax\Providers\RouteServiceProvider::class,
 
     ],
 
