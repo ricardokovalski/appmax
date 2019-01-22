@@ -4,6 +4,7 @@ namespace Appmax\Http\Controllers\Auth;
 
 use Appmax\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -18,14 +19,27 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        logout as performLogout;
+    }
 
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    public $redirectTo = '/admin/produtos';
+
+    public function username()
+    {
+        return 'Email';
+    }
+
+    public function logout(Request $request)
+    {
+        $this->performLogout($request);
+        return redirect()->route('login');
+    }
 
     /**
      * Create a new controller instance.

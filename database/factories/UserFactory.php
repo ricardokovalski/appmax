@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,23 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Appmax\User::class, function (Faker $faker) {
+$factory->define(Appmax\Models\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
+        'Name' => $faker->name,
+        'Email' => $faker->unique()->safeEmail,
+        'Password' => Hash::make(123456),
+        'RememberToken' => str_random(10),
+    ];
+});
+
+$factory->define(Appmax\Models\Product::class, function (Faker $faker) {
+    return [
+        'Name' => $faker->sentence,
+        'Description' => $faker->text,
+        'Amount' => $faker->numberBetween(1, 500),
+        'Price' => $faker->randomFloat(2, NULL, 10),
+        'Sku' => "MTH-".$faker->randomNumber(4),
+        'IsActive' => $faker->boolean,
+        'CreatedAt' => $faker->date('Y-m-d H:i:s')
     ];
 });

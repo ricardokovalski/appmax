@@ -16,6 +16,10 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public $rememberTokenName = 'RememberToken';
+
+    public $timestamps = false;
+
     /**
      * The table associated with the model.
      *
@@ -35,9 +39,14 @@ class User extends Authenticatable
      */
     protected $fillable = ['Name', 'Email', 'Password', 'IsActive'];
 
-    protected $hidden = [
-        'RememberToken',
-    ];
+    public function getEmailForPasswordReset()
+    {
+        return $this->Email;
+    }
 
-    public $timestamps = false;
+    public function getAuthPassword()
+    {
+        return $this->Password;
+    }
+
 }
