@@ -91,7 +91,7 @@ class ProductController extends Controller
 
             $validation = Validator::make($request->all(), [
                 'Name' => 'required',
-                'Description' => 'required|email',
+                'Description' => 'required',
                 'Amount' => 'required',
                 'Price' => 'required'
             ]);
@@ -108,7 +108,7 @@ class ProductController extends Controller
                 return Redirect::back()->withInput()->withErrors($errors);
             }
 
-            $product = new Product();
+            $product = Product::find($id);
             $product->Name = $request->get('Name');
             $product->Description = $request->get('Description');
             $product->Amount = $request->get('Amount');
@@ -116,11 +116,13 @@ class ProductController extends Controller
             $product->save();
 
             $message = 'Produto alterado com sucesso';
-            return Redirect()->route('produtos.index');
+            $return = ['message' => $message, 'class' => 'success'];
+            return Redirect()->route('produtos.index')->with('status', $return);
         } catch (\Exception $e) {
-
+            dd($e->getMessage());
             $message = 'Erro ao enviar os dados, tente novamente.';
-            return Redirect()->route('produtos.index');
+            $return = ['message' => $message, 'class' => 'danger'];
+            return Redirect()->route('produtos.index')->with('status', $return);
         }
     }
 
@@ -129,10 +131,12 @@ class ProductController extends Controller
         try {
             $this->model->destroy($id);
             $message = "Produto excluido com sucesso.";
-            return Redirect()->route('produtos.index');
+            $return = ['message' => $message, 'class' => 'danger'];
+            return Redirect()->route('produtos.index')->with('status', $return);
         } catch (\Exception $e) {
             $message = 'Erro ao excluir o produto, tente novamente.';
-            return Redirect()->route('produtos.index');
+            $return = ['message' => $message, 'class' => 'danger'];
+            return Redirect()->route('produtos.index')->with('status', $return);
         }
     }
 }
