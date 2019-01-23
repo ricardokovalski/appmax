@@ -57,6 +57,7 @@ class ProductController extends Controller
 
             $request->request->add([
                 'CreatedAt' => date('Y-m-d H:i:s'),
+                'MethodInsert' => 1,
                 'IsActive' => 1,
                 'Sku' => $sku
             ]);
@@ -109,6 +110,10 @@ class ProductController extends Controller
                 $errors = $validation->errors()->toArray();
                 return Redirect::back()->withInput()->withErrors($errors);
             }
+
+            $request->request->add([
+                'UpdatedAt' => date('Y-m-d H:i:s')
+            ]);
 
             $product = $this->model->findOrFail($id);
             $product->Name = $request->get('Name');

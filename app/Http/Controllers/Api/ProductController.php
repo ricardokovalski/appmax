@@ -55,6 +55,7 @@ class ProductController extends Controller
                 $sku = implode($prefix, "") . '-' . $faker->randomNumber(4);
 
                 $data['CreatedAt'] = date('Y-m-d H:i:s');
+                $data['MethodInsert'] = 2;
                 $data['IsActive'] = 1;
                 $data['Sku'] = $sku;
 

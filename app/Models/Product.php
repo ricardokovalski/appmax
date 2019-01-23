@@ -2,6 +2,7 @@
 namespace Appmax\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $ProductID
@@ -10,11 +11,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $Amount
  * @property float $Price
  * @property string $Sku
+ * @property boolean $MethodInsert
  * @property boolean $IsActive
  * @property string $CreatedAt
+ * @property string $UpdatedAt
+ * @property string $DeletedAt
  */
 class Product extends Model
 {
+    use SoftDeletes;
+
+    const DELETED_AT = "DeletedAt";
+
     /**
      * The table associated with the model.
      * 
@@ -32,8 +40,10 @@ class Product extends Model
     /**
      * @var array
      */
-    protected $fillable = ['Name', 'Description', 'Amount', 'Price', 'Sku', 'IsActive', 'CreatedAt'];
+    protected $fillable = ['Name', 'Description', 'Amount', 'Price', 'Sku', 'MethodInsert', 'IsActive', 'CreatedAt', 'UpdatedAt', 'DeletedAt'];
 
     public $timestamps = false;
+
+    protected $dates = ['DeletedAt'];
 
 }

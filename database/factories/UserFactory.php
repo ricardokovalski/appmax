@@ -24,12 +24,15 @@ $factory->define(Appmax\Models\User::class, function (Faker $faker) {
 });
 
 $factory->define(Appmax\Models\Product::class, function (Faker $faker) {
+    $alpha = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Y','Z','W');
+    $prefix = $faker->randomElements($alpha, 3, true);
     return [
         'Name' => $faker->sentence,
         'Description' => $faker->text,
         'Amount' => $faker->numberBetween(1, 500),
         'Price' => $faker->randomFloat(2, NULL, 10),
-        'Sku' => "MTH-".$faker->randomNumber(4),
+        'Sku' => implode($prefix, "").'-'.$faker->randomNumber(4),
+        'MethodInsert' => $faker->boolean,
         'IsActive' => $faker->boolean,
         'CreatedAt' => $faker->date('Y-m-d H:i:s')
     ];
