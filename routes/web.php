@@ -1,8 +1,12 @@
 <?php
 
-Route::get('/admin', function () {
-    return view('layouts.app');
+Route::get('/', function () {
+    return \Redirect::to('admin/login');
 });
+
+//Route::get('/admin', function () {
+//    return view('layouts.app');
+//});
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
