@@ -10,6 +10,7 @@ Route::get('/', function () {
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::prefix('admin')->group(function () {
 
     Auth::routes();
@@ -19,5 +20,10 @@ Route::prefix('admin')->group(function () {
         Route::resource('produtos', 'Admin\ProductController', ['except' => [
             'show'
         ]]);
+        Route::get('produtos/decrement/{id}', ['as' => 'produtos.decrement', 'uses' => 'Admin\ProductController@decrement']);
     });
 });
+
+
+
+

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
     protected $model;
-    protected $faker;
 
     public function __construct(Product $model)
     {
@@ -52,11 +51,14 @@ class ProductController extends Controller
             }
 
             $faker = \Faker\Factory::create();
+            $alpha = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Y','Z','W');
+            $prefix = $faker->randomElements($alpha, 3, true);
+            $sku = implode($prefix, "").'-'.$faker->randomNumber(4);
 
             $request->request->add([
                 'CreatedAt' => date('Y-m-d H:i:s'),
                 'IsActive' => 1,
-                'Sku' => 'MTH-'.$faker->randomNumber(4)
+                'Sku' => $sku
             ]);
 
             $product = new Product();
@@ -108,7 +110,7 @@ class ProductController extends Controller
                 return Redirect::back()->withInput()->withErrors($errors);
             }
 
-            $product = Product::find($id);
+            $product = $this->model->findOrFail($id);
             $product->Name = $request->get('Name');
             $product->Description = $request->get('Description');
             $product->Amount = $request->get('Amount');
@@ -119,7 +121,6 @@ class ProductController extends Controller
             $return = ['message' => $message, 'class' => 'success'];
             return Redirect()->route('produtos.index')->with('status', $return);
         } catch (\Exception $e) {
-            dd($e->getMessage());
             $message = 'Erro ao enviar os dados, tente novamente.';
             $return = ['message' => $message, 'class' => 'danger'];
             return Redirect()->route('produtos.index')->with('status', $return);
@@ -129,14 +130,42 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try {
-            $this->model->destroy($id);
+            $product = $this->model->findOrFail($id);
+            $product->delete();
+
             $message = "Produto excluido com sucesso.";
-            $return = ['message' => $message, 'class' => 'danger'];
+            $return = ['message' => $message, 'class' => 'success'];
             return Redirect()->route('produtos.index')->with('status', $return);
         } catch (\Exception $e) {
             $message = 'Erro ao excluir o produto, tente novamente.';
             $return = ['message' => $message, 'class' => 'danger'];
             return Redirect()->route('produtos.index')->with('status', $return);
         }
+    }
+
+    public function decrement($id)
+    {
+        try {
+            $product = $this->model->findOrFail($id);
+            $product->Amount -= 1;
+
+            if ($product->Amount <= 1) {
+                $message = "Não pode dar baixa no produto {$product->Sku}.";
+                $return = ['message' => $message, 'class' => 'warning'];
+                return Redirect()->route('produtos.index')->with('status', $return);
+            }
+
+            $product->save();
+
+            $message = "Produto {$product->Sku} deu baixa com sucesso.";
+            $return = ['message' => $message, 'class' => 'success'];
+            return Redirect()->route('produtos.index')->with('status', $return);
+        } catch (\Exception $e) {
+            $message = 'Erro ao fazer o processamento, tente novamente.';
+            $return = ['message' => $message, 'class' => 'danger'];
+            return Redirect()->route('produtos.index')->with('status', $return);
+        }
+
+        return view('admin.produtos.edit', ['product' => $product]);
     }
 }

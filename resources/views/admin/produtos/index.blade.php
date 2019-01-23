@@ -27,18 +27,24 @@
                     <th scope="col">Quantidade</th>
                     <th scope="col">Preço</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Dar Baixa</th>
                     <th scope="col">Editar</th>
                     <th scope="col">Excluir</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($products as $product)
-                    <tr>
+                    <tr class="{{ ($product->Amount < 100) ? 'bg-warning text-white' : '' }}">
                         <td>{{ $product->Name }}</td>
                         <td>{{ $product->Sku }}</td>
                         <td>{{ $product->Amount }}</td>
                         <td>R$ {{ $product->Price }}</td>
                         <td>R$ {{ ($product->Price * $product->Amount) }}</td>
+                        <td>
+                            <a class="btn btn-dark" href="{{ route('produtos.decrement', $product->ProductID) }}" role="button">
+                                <i class="fas fa-angle-down"></i>
+                            </a>
+                        </td>
                         <td>
                             <a class="btn btn-success" href="{{ route('produtos.edit', $product->ProductID) }}" role="button">
                                 <i class="fas fa-edit"></i>
@@ -48,7 +54,7 @@
                             <form method="POST" action="{{ route('produtos.destroy', $product->ProductID) }}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                                <button type="button" class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
