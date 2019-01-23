@@ -10,6 +10,10 @@
 
     <div class="row">
         <div class="col-md-12">
+            <a class="btn btn-primary btn-lg mb-3   " href="{{ route('relatorios') }}" role="button">
+                <i class="fas fa-file"></i> Relatórios
+            </a>
+
             <a class="btn btn-success btn-lg float-right mb-3" href="{{ route('produtos.create') }}" role="button">
                 <i class="fas fa-plus"></i> Cadastrar Produto
             </a>
@@ -19,11 +23,11 @@
     <div class="card border-dark mb-12">
         <div class="card-header">Produtos</div>
         <div class="table-responsive">
-            <table class="table table-light" style="margin-bottom: 0;">
+            <table class="table  table-bordered" style="margin-bottom: 0;">
                 <thead>
                 <tr>
-                    <th scope="col">Nome</th>
                     <th scope="col">SKU</th>
+                    <th scope="col">Nome</th>
                     <th scope="col">Quantidade</th>
                     <th scope="col">Preço</th>
                     <th scope="col">Total</th>
@@ -35,8 +39,8 @@
                 <tbody>
                 @foreach($products as $product)
                     <tr class="{{ ($product->Amount < 100) ? 'bg-warning text-white' : '' }}">
-                        <td>{{ $product->Name }}</td>
                         <td>{{ $product->Sku }}</td>
+                        <td>{{ $product->Name }}</td>
                         <td>{{ $product->Amount }}</td>
                         <td>R$ {{ $product->Price }}</td>
                         <td>R$ {{ ($product->Price * $product->Amount) }}</td>

@@ -21,6 +21,8 @@ Route::prefix('admin')->group(function () {
             'show'
         ]]);
         Route::get('produtos/decrement/{id}', ['as' => 'produtos.decrement', 'uses' => 'Admin\ProductController@decrement']);
+
+        Route::get('relatorios', ['as' => 'relatorios', 'uses' => 'Admin\ReportController@index']);
     });
 });
 
