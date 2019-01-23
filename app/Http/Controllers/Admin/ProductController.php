@@ -153,6 +153,7 @@ class ProductController extends Controller
         try {
             $product = $this->model->findOrFail($id);
             $product->Amount -= 1;
+            $product->UpdatedAt = date('Y-m-d H:i:s');
 
             if ($product->Amount <= 1) {
                 $message = "Não pode dar baixa no produto {$product->Sku}.";
