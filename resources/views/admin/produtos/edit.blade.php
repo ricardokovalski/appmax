@@ -1,7 +1,16 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <form method="POST" action="{{ route('produtos.update', $product->ProductID) }}" role="form">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-10 mx-auto">
+                        <div class="card rounded-0">
+                            <div class="card-header">
+                                <h3 class="mb-0">Edição do Produto - {{ $product->Sku }} </h3>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('produtos.update', $product->ProductID) }}" role="form">
             {!! csrf_field() !!}
             {{ method_field('PUT') }}
             <div class="controls">
@@ -43,5 +52,11 @@
                 </div>
             </div>
         </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
