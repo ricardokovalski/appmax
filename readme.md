@@ -46,7 +46,8 @@ O painel possui as seguintes funções:
 
 A Api possui dois endpoints que são>
 
-- baixar-produtos (retorna um json com todos os produtos)
+- ver-produtos (retorna um json com todos os produtos)
+- baixar-produtos (remove um ou mais produtos)
 - adicionar-produtos (cadastra um ou mais produtos)
 
 ## License
