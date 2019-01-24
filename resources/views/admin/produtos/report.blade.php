@@ -16,15 +16,15 @@
                 @foreach($reports as $report)
                     <tr>
                         <td style="vertical-align: middle;">
-                            @if ($report->get('products')->count() > 1)
-                                <ul>
+                            <ul>
+                            @if(!is_string($report->get('products')))
                                 @foreach($report->get('products') as $product)
-                                    <li>{{ $product->Name }} - {{ $product->Sku }}</li>
+                                <li>{{ $product->Name }} - {{ $product->Sku }}</li>
                                 @endforeach
-                                </ul>
                             @else
-                                Sem produtos
+                                {{ $report->get('products') }}
                             @endif
+                            </ul>
                         </td>
                         <td style="vertical-align: middle;" align="center">{{ $report->get('total') }}</td>
                         <td style="vertical-align: middle;">{{ $report->get('description') }}</td>

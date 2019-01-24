@@ -32,27 +32,27 @@ class ReportController extends Controller
         $reports = collect([
             "reportA" => collect([
                 "description" => "Produtos que foram cadastrados no estoque.",
-                "products" => $productsReportA,
+                "products" => ($totalProductsReportA > 0) ? $productsReportA : 'Sem produtos.',
                 "total" => $totalProductsReportA
             ]),
             "reportB" => collect([
                 "description" => "Produtos que foram removidos do estoque.",
-                "products" => $productsReportB,
+                "products" => ($totalProductsReportB > 0) ? $productsReportB : 'Sem produtos.',
                 "total" => $totalProductsReportB
             ]),
             "reportC" => collect([
                 "description" => "Produtos que foram cadastrados no estoque via sistema.",
-                "products" => $productsReportC,
+                "products" => ($totalProductsReportC > 0) ? $productsReportC : 'Sem produtos.',
                 "total" => $totalProductsReportC
             ]),
             "reportD" => collect([
-                "description" => "Produtos que foram cadastrados no estoque via API.",
-                "products" => $productsReportD,
+                "description" => "Produtos que foram cadastrados no estoque via Api.",
+                "products" => ($totalProductsReportD > 0) ? $productsReportD : 'Sem produtos.',
                 "total" => $totalProductsReportD
             ]),
             "reportE" => collect([
                 "description" => "Produtos que possuem uma quantidade menor ou igual a 100 unidades.",
-                "products" => $productsReportE,
+                "products" => ($totalProductsReportE > 0) ? $productsReportE : 'Sem produtos.',
                 "total" => $totalProductsReportE
             ]),
         ]);

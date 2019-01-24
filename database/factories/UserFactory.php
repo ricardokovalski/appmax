@@ -32,7 +32,7 @@ $factory->define(Appmax\Models\Product::class, function (Faker $faker) {
         'Amount' => $faker->numberBetween(1, 500),
         'Price' => $faker->randomFloat(2, NULL, 10),
         'Sku' => implode($prefix, "").'-'.$faker->randomNumber(4),
-        'MethodInsert' => $faker->boolean,
+        'MethodInsert' => $faker->randomElements(array(1,2)),
         'IsActive' => $faker->boolean,
         'CreatedAt' => $faker->date('Y-m-d H:i:s')
     ];
