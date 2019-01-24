@@ -214,4 +214,21 @@ class ServiceProduct
             return ['status' => 404, 'result' => $result];
         }
     }
+
+    public function apiDestroy($arrayData)
+    {
+        try {
+            $result = array();
+
+            foreach ($arrayData as $data) {
+                $this->model = $this->find($data['ProductID']);
+                $this->model->delete();
+
+                array_push($result, $this->model);
+            }
+            return ['status' => 201, 'result' => $this->model];
+        } catch (\Exception $e) {
+            return ['status' => 404, 'result' => $this->model];
+        }
+    }
 }

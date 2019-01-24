@@ -26,5 +26,11 @@ class ProductController extends Controller
         return response()->json($result['result'], $result['status']);
     }
 
+    public function destroy(Request $request)
+    {
+        $result = $this->service->apiDestroy($request->all());
+        return response()->json($result['result'], $result['status']);
+    }
+
 
 }

@@ -22,5 +22,6 @@ Route::get('/', function () {
     return response()->json(['message' => 'API Appmax', 'status' => 'Connected']);;
 });
 
-Route::get('/baixar-produtos', ['as' => 'api.produtos.baixar', 'uses' => 'Api\ProductController@index']);
-Route::post('/adicionar-produtos', ['as' => 'api.produtos.adicionar', 'uses' => 'Api\ProductController@store']);
+Route::get('/ver-produtos', ['as' => 'produtos.todos', 'uses' => 'Api\ProductController@index']);
+Route::post('/adicionar-produtos', ['as' => 'produtos.adicionar', 'uses' => 'Api\ProductController@store']);
+Route::delete('/baixar-produtos', ['as' => 'produtos.baixar', 'uses' => 'Api\ProductController@destroy']);
